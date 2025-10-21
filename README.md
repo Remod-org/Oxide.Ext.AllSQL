@@ -2,9 +2,17 @@
 
 An extension for Oxide/uMod providing an abstraction layer for SQLite, MSSQL, and MySQL.
 
+This has only been tested on Rust, but may work for other games.
+
 This allows a plugin to provide more flexiblity for database choices.
 
 NOTE: When using this extension with the intent of supporting more than one database type, your queries must be verified to work on all possible choices of database server.  For example, queries such as "INSERT OR UPDATE INTO ..." may only work on SQLite.  SQL is not universal, but if you keep it to simple SELECT, DELETE, INSERT you should be fine.  Since MySQL, SQLite, and even MSSQL (on Linux) are freely available, you should be able to write AND test.
+
+### INSTALL
+
+1. Download only the DLL file, Oxide.Ext.AllSQL.dll.
+2. Save this file to your game server folder at serverfiles/RustDedicated_Data/Managed.
+3. Restart the server
 
 ### Configuration
   There is no configuration for this extension
