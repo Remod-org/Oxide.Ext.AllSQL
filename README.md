@@ -8,11 +8,19 @@ This allows a plugin to provide more flexiblity for database choices.
 
 NOTE: When using this extension with the intent of supporting more than one database type, your queries must be verified to work on all possible choices of database server.  For example, queries such as "INSERT OR UPDATE INTO ..." may only work on SQLite.  SQL is not universal, but if you keep it to simple SELECT, DELETE, INSERT you should be fine.  Since MySQL, SQLite, and even MSSQL (on Linux) are freely available, you should be able to write AND test.
 
-### INSTALL
+### INSTALL (for most users)
 
 1. Download only the DLL file, Oxide.Ext.AllSQL.dll.
 2. Save this file to your game server folder at serverfiles/RustDedicated_Data/Managed.
 3. Restart the server
+
+Please use the issues tab on this project to report problems or request changes.
+
+### COMPILE (if you want to get into the weeds on this)
+
+This was written in Visual Studio 2022 (the free one) on Windows.  You will likely have to add the contents of serverfiles/RustDedicated_Data/Managed to satisfy dependencies.
+
+If you have a fix or change, please submit a pull request.
 
 ### Configuration
   There is no configuration for this extension
