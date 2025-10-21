@@ -4,6 +4,8 @@ An extension for Oxide/uMod providing an abstraction layer for SQLite, MSSQL, an
 
 This allows a plugin to provide more flexiblity for database choices.
 
+NOTE: When using this extension with the intent of supporting more than one database type, your queries must be verified to work on all possible choices of database server.  For example, queries such as "INSERT OR UPDATE INTO ..." may only work on SQLite.  SQL is not universal, but if you keep it to simple SELECT, DELETE, INSERT you should be fine.  Since MySQL, SQLite, and even MSSQL (on Linux) are freely available, you should be able to write AND test.
+
 ### Configuration
   There is no configuration for this extension
 
@@ -63,7 +65,7 @@ Once the connection is setup, you can perform the following types of queries:
 
 Simple insert/update query requiring no return
 ```cs
-    string query = "DELETE FROM table WHERE field='nope');
+    string query = "DELETE FROM table WHERE field='nope'";
     sqlConnection.ExecuteNonQuery(query);
 ```
 
@@ -86,7 +88,10 @@ Simple query containing one result, e.g. for COUNT
 
 ### Bigger example
 
-In one of my plugins, I added the following local function to setup my database.  This allows for creation of a master sqlConnection, or other connections for queries requiring a separate connection, e.g. within a loop
+In one of my plugins, I added the following local function to setup my database.  This allows for creation of a master sqlConnection, or other connections for queries requiring a separate connection, e.g. within a loop.
+
+This also shows how you might use configuration to allow the admin to choose the database type.
+
 
 ```cs
         IDatabaseProvider sqlConnection;
