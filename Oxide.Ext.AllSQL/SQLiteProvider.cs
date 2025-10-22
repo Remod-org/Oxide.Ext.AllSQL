@@ -26,6 +26,8 @@ namespace Oxide.Ext.AllSQL
 
         public int ExecuteNonQuery(string query, params object[] parameters)
         {
+            EnsureOpen();
+            query = NormalizeQuery(query);
             using SQLiteCommand cmd = new(query, _connection);
             AddParameters(cmd, parameters);
             return cmd.ExecuteNonQuery();
@@ -33,6 +35,8 @@ namespace Oxide.Ext.AllSQL
 
         public object ExecuteScalar(string query, params object[] parameters)
         {
+            EnsureOpen();
+            query = NormalizeQuery(query);
             using SQLiteCommand cmd = new(query, _connection);
             AddParameters(cmd, parameters);
             return cmd.ExecuteScalar();
@@ -40,6 +44,8 @@ namespace Oxide.Ext.AllSQL
 
         public IDataReader ExecuteReader(string query, params object[] parameters)
         {
+            EnsureOpen();
+            query = NormalizeQuery(query);
             using SQLiteCommand cmd = new(query, _connection);
             AddParameters(cmd, parameters);
             return cmd.ExecuteReader();
@@ -71,6 +77,39 @@ namespace Oxide.Ext.AllSQL
             {
                 throw new InvalidOperationException("Database not open.");
             }
+        }
+
+        private static string NormalizeQuery(string query)
+        {
+            // Only strip "main." if no ATTACH is in use
+            // We'll check for "ATTACH" in the query to be safe
+            if (query.IndexOf("main.", StringComparison.OrdinalIgnoreCase) >= 0 &&
+                query.IndexOf("ATTACH", StringComparison.OrdinalIgnoreCase) < 0 &&
+                query.IndexOf("other.", StringComparison.OrdinalIgnoreCase) < 0)
+            {
+                query = ReplaceInsensitive(query, "main.", "");
+            }
+
+            return query;
+        }
+
+        private static string ReplaceInsensitive(string source, string oldValue, string newValue)
+        {
+            if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(oldValue))
+            {
+                return source;
+            }
+            int index = 0;
+            while (true)
+            {
+                index = source.IndexOf(oldValue, index, StringComparison.OrdinalIgnoreCase);
+                if (index < 0) break;
+
+                source = source.Remove(index, oldValue.Length).Insert(index, newValue);
+                index += newValue.Length;
+            }
+
+            return source;
         }
 
         public void Dispose() => _connection?.Dispose();
