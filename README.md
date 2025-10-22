@@ -131,7 +131,7 @@ This also shows how you might use configuration to allow the admin to choose the
                         case "sqlite":
                         default:
                             newConnection = DB.Create("sqlite");
-                            newConnection.ConnectionString(Interface.GetMod().DataDirectory, configData.Options.dbname, "", "");
+							newConnection.ConnectionString(Regex.Escape(Path.Combine(Interface.GetMod().DataDirectory, Name)), "", "");
                             break;
                     }
                     newConnection.Open();
@@ -151,7 +151,7 @@ This also shows how you might use configuration to allow the admin to choose the
                         case "sqlite":
                         default:
                             sqlConnection = DB.Create("sqlite");
-                            sqlConnection.ConnectionString(Interface.GetMod().DataDirectory, configData.Options.dbname, "", "");
+							sqlConnection.ConnectionString(Regex.Escape(Path.Combine(Interface.GetMod().DataDirectory, Name)), "", "");
                             break;
                     }
                     sqlConnection.Open();
