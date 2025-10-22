@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MySqlConnector;
 using System.Data;
 using System.Diagnostics;
 
@@ -36,7 +36,6 @@ namespace Oxide.Ext.AllSQL
             AddParameters(cmd, parameters);
             return cmd.ExecuteNonQuery();
         }
-
 
         public object ExecuteScalar(string query, params object[] parameters)
         {
