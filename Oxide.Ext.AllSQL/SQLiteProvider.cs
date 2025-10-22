@@ -68,7 +68,9 @@ namespace Oxide.Ext.AllSQL
 
             using SQLiteConnection destination = new($"Data Source={destinationPath};Version=3;");
             destination.Open();
-            destination.BackupDatabase(_connection, "main", "main", -1, null, 0);
+            //destination.BackupDatabase(_connection, "main", "main", -1, null, 0);
+            _connection.BackupDatabase(destination, "main", "main", -1, null, 0);
+            destination.Close();
         }
 
         private void EnsureOpen()
