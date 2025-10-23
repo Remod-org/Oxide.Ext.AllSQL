@@ -49,27 +49,11 @@ The primary interface is of type IDatabaseProvider:
     }
 ```
 
-For initial creation of the provider, you should use
-
-```cs
-    public static class DB
-    {
-        public static IDatabaseProvider Create(string providerType)
-        {
-            return providerType.ToLower() switch
-            {
-                "sqlite" => new SQLiteProvider(),
-                "sql" => new SqlServerProvider(),
-                "mysql" => new MySqlProvider(),
-                _ => throw new NotSupportedException($"Provider not supported: {providerType}")
-            };
-        }
-    }
-```
-
 Your main usage would be, at a minimum:
 
 ```cs
+using Oxide.Ext.AllSQL;
+
     IDatabaseProvider sqlConnection;
     sqlConnection = DB.Create("sql"); // or sqlite, mysql
     sqlConnection.ConnectionString("localhost", "DBName", "dbuser", "dbpass");  // SQL or MySQL
@@ -186,3 +170,10 @@ Note that it is probably a good idea to close the connection when done as show a
         sqlConnection?.Close();
     }
 ```
+
+### TO CONSIDER
+
+I would like to add Postgresql to this, but there are potentially compatibility issues - at least I was unable to add it.
+
+Also, async operations appear to be a non-starter.
+
