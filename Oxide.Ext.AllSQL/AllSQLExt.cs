@@ -1,5 +1,4 @@
-﻿#define ASYNC
-using Oxide.Core;
+﻿using Oxide.Core;
 using Oxide.Core.Extensions;
 using System;
 namespace Oxide.Ext.AllSQL

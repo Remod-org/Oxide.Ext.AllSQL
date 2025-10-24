@@ -1,4 +1,4 @@
-﻿using MySqlConnector;
+﻿using MySqlConnector; // Note that we require version 2.1.13 and no later for Oxide
 using System.Data;
 using System.Diagnostics;
 

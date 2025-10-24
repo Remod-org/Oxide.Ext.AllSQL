@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net481</TargetFramework>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
 		<OutputType>Library</OutputType>
 		<Version>1.0.1</Version>
 		<Authors>RFC1920</Authors>
@@ -26,6 +26,10 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <Compile Remove="OracleDatabaseProvider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -35,6 +39,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MySqlConnector" Version="2.1.13" />
+    <PackageReference Include="Oracle.ManagedDataAccess" Version="23.26.0" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -43,9 +48,6 @@
 	  </Reference>
 	  <Reference Include="Facepunch.System">
 	    <HintPath>H:\serverfiles\RustDedicated_Data\Managed\Facepunch.System.dll</HintPath>
-	  </Reference>
-	  <Reference Include="MySql.Data">
-	    <HintPath>H:\serverfiles\RustDedicated_Data\Managed\MySql.Data.dll</HintPath>
 	  </Reference>
 	  <Reference Include="Oxide.Core">
 	    <HintPath>H:\serverfiles\RustDedicated_Data\Managed\Oxide.Core.dll</HintPath>
